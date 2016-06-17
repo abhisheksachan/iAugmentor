@@ -2,21 +2,21 @@ import cv2
 from os import listdir
 from os.path import isfile, join
 
-imagePath = "/root/Images/"
+imagePath = "/root/Frames/1avi"
 cascPathFace = "/root/haarcascade_frontalface_default.xml"
+faceCascade = cv2.CascadeClassifier(cascPathFace)
 
 imageList = listdir(imagePath)
 
 for img in imageList:
-	faceCascade = cv2.CascadeClassifier(cascPathFace)
-
-	path  = "/root/Images/"+ str(img)
+	
+	path  = "/root/Frames/1avi/"+ str(img)
 
 	image = cv2.imread(path)
-	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+	if image == None:
+		continue
 
-	minisize = (image.shape[1],image.shape[0])
-	miniframe = cv2.resize(image, minisize)
+	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 	faces = faceCascade.detectMultiScale(
 	    gray,
@@ -34,11 +34,12 @@ for img in imageList:
 	for (x, y, w, h) in faces:
 		#for face
 	    cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
-	    cropped_image_1 = image[y:y+h, x:x+w]
-	    cropped_image_2 = image[y-top:y+h+bottom, x-left:x+w+right]
+	    
+	cropped_image_1 = image[y:y+h, x:x+w]
+	cropped_image_2 = image[y-top:y+h+bottom, x-left:x+w+right]
 
-	name_for_image1 = "FaceCroppingType1/"+str(img)
-	name_for_image2 = "FaceCroppingType2/"+str(img)
+	name_for_image1 = "FaceCroppingType1/1avi/"+str(img)
+	name_for_image2 = "FaceCroppingType2/1avi/"+str(img)
 	# cv2.imshow("Faces found" ,image)
 	cv2.imwrite(name_for_image1, cropped_image_1)
 	cv2.imwrite(name_for_image2, cropped_image_2) 
