@@ -2,7 +2,7 @@ import cv2
 from os import listdir
 from os.path import isfile, join
 
-imagePath = "/root/Frames/1avi"
+imagePath = "/root/Frames/5mp4"
 cascPathFace = "/root/haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascPathFace)
 
@@ -10,7 +10,7 @@ imageList = listdir(imagePath)
 
 for img in imageList:
 	
-	path  = "/root/Frames/1avi/"+ str(img)
+	path  = "/root/Frames/5mp4/"+ str(img)
 
 	image = cv2.imread(path)
 	if image == None:
@@ -38,8 +38,8 @@ for img in imageList:
 	cropped_image_1 = image[y:y+h, x:x+w]
 	cropped_image_2 = image[y-top:y+h+bottom, x-left:x+w+right]
 
-	name_for_image1 = "FaceCroppingType1/1avi/"+str(img)
-	name_for_image2 = "FaceCroppingType2/1avi/"+str(img)
+	name_for_image1 = "FaceCroppingType1/5mp4/"+str(img)
+	name_for_image2 = "FaceCroppingType2/5mp4/"+str(img)
 	# cv2.imshow("Faces found" ,image)
 	cv2.imwrite(name_for_image1, cropped_image_1)
 	cv2.imwrite(name_for_image2, cropped_image_2) 
